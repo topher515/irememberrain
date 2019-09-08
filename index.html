@@ -73,7 +73,9 @@
 
       function fadeOut() {
         $('#text').fadeTo(1000, 0);
-        $('#cover').fadeOut(5000); //.fadeTo(10000, 0.01);
+        $('#cover').fadeOut(5000, function() {
+          $('#cover').hide();
+        }); //.fadeTo(10000, 0.01);
       }
 
       function playAudio() {
