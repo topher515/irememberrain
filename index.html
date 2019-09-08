@@ -41,10 +41,22 @@
 
     <div id="videoplayer"></div>
 
+    <audio 
+      id="audioplayer" 
+      autoplay 
+      loop 
+      oncanplay="onAudioPlayerReady()"
+      onplay="fadeOut()"
+    >
+      <source autoplay loop src="./Swardy - Here On My Own - 03 I Remember Maine.mp3">
+    </audio>
+    
     <script
       src="https://code.jquery.com/jquery-3.4.1.min.js"
       integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
       crossorigin="anonymous"></script>
+
+    <script src="src/jquery.youtubebackground.js"></script>
 
     <script>
       var VIDEO_ID = 'BOa0zQBRs_M'
@@ -113,15 +125,6 @@
 
     </script>
 
-    <audio 
-      id="audioplayer" 
-      autoplay 
-      loop 
-      oncanplay="onAudioPlayerReady()"
-      onplay="fadeOut()"
-    >
-      <source autoplay loop src="./Swardy - Here On My Own - 03 I Remember Maine.mp3">
-    </audio>
 
   </body>
 </html>
