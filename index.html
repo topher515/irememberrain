@@ -1,0 +1,167 @@
+<!-- <html>
+    <head>
+        <style>
+            #cover {
+                position: absolute;
+                left: 0;
+                right: 0;
+                top: 0;
+                bottom: 0;
+                z-index: 100;
+                background-color:black;
+                opacity: 0.9;
+                color: white;
+                cursor: pointer;
+                font-size: 15px;
+                text-align: center;
+                padding-top: 300px;
+            }
+            #vid {
+                position: absolute;
+                left: 0;
+                right: 0;
+                top: 0;
+                bottom: 0;
+            }
+        </style>
+    </head>
+    <body>
+        <div id="cover">
+            <button onclick="(function() {
+                document.getElementById('audioplayer').play();
+                document.getElementById('vid').src = document.getElementById('vid').src + '?autoplay=1'
+                document.getElementById('cover').style.display = 'none';
+            })()">Play</button> 
+        </div>
+        <iframe id="vid" width="100%" height="100%" src="https://www.youtube.com/embed/BOa0zQBRs_M" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        <audio id="audioplayer" autoplay loop >
+            <source autoplay loop src="./Swardy - Here On My Own - 03 I Remember Maine.mp3">
+        </audio>
+    </body>
+<html>
+ -->
+
+
+<!DOCTYPE html>
+<html>
+  <head>
+
+    <title>I Remember Rain</title>
+
+    <style>
+        #cover {
+          position: absolute;
+          left: 0;
+          right: 0;
+          top: 0;
+          bottom: 0;
+          z-index: 100;
+          background-color:black;
+          opacity: 0.95;
+          color: white;
+          cursor: pointer;
+          font-size: 25px;
+          font-family: sans-serif;
+          text-align: center;
+          padding-top: 25%;
+        }
+        #videoplayer {
+          position: absolute;
+          left: 0;
+          right: 0;
+          top: 0;
+          bottom: 0;
+        }
+        #text {
+          opacity: 0;
+        }
+      </style>
+
+  </head>
+
+  <body>
+    
+    <div id="cover"><span id="text"></span></div>
+
+    <div id="videoplayer"></div>
+
+    <script
+      src="https://code.jquery.com/jquery-3.4.1.min.js"
+      integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+      crossorigin="anonymous"></script>
+
+    <script>
+      var VIDEO_ID = 'BOa0zQBRs_M'
+
+      var isTouchDevice = 'ontouchstart' in document.documentElement;
+      var tag = document.createElement('script');
+
+      tag.src = "https://www.youtube.com/iframe_api";
+      var firstScriptTag = document.getElementsByTagName('script')[0];
+      firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+
+      var player;
+
+      function onYouTubeIframeAPIReady() {
+        player = new YT.Player('videoplayer', {
+          height: '100%',
+          width: '100%',
+          videoId: VIDEO_ID,
+          events: {
+            'onReady': onVideoPlayerReady,
+            'onStateChange': onVideoPlayerStateChange
+          }
+        });
+      }
+
+      function fadeOut() {
+        $('#text').fadeTo(1000, 0);
+        $('#cover').fadeTo(10000, 0.01);
+      }
+
+      function playAudio() {
+        var audioplayer = document.getElementById('audioplayer');
+        audioplayer.play();
+        audioplayer.volume = 1.0;
+        audioplayer.oncanplay = null;
+      }
+
+      function onAudioPlayerReady() {
+        playAudio();
+      }
+
+      function onVideoPlayerReady(event) {
+        $('#text').fadeTo(1000, 0.7);
+        event.target.seekTo(0)
+        event.target.setVolume(0);
+        event.target.playVideo(20);
+      }
+
+      var playedAudio = false;
+      function onVideoPlayerStateChange(event) {
+        if (event.data == YT.PlayerState.PLAYING && !playedAudio) {
+          playAudio()
+        }
+      }
+
+      $(function() {
+        $('#text').html(isTouchDevice ? 'Tap to take a walk' : 'Click to take a walk')
+        $('#cover').click(function() {
+          playAudio()
+        })
+      })
+
+    </script>
+
+    <audio 
+      id="audioplayer" 
+      autoplay 
+      loop 
+      oncanplay="onAudioPlayerReady()"
+      onplay="fadeOut()"
+    >
+      <source autoplay loop src="./Swardy - Here On My Own - 03 I Remember Maine.mp3">
+    </audio>
+
+  </body>
+</html>
