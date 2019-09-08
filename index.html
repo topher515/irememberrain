@@ -1,46 +1,3 @@
-<!-- <html>
-    <head>
-        <style>
-            #cover {
-                position: absolute;
-                left: 0;
-                right: 0;
-                top: 0;
-                bottom: 0;
-                z-index: 100;
-                background-color:black;
-                opacity: 0.9;
-                color: white;
-                cursor: pointer;
-                font-size: 15px;
-                text-align: center;
-                padding-top: 300px;
-            }
-            #vid {
-                position: absolute;
-                left: 0;
-                right: 0;
-                top: 0;
-                bottom: 0;
-            }
-        </style>
-    </head>
-    <body>
-        <div id="cover">
-            <button onclick="(function() {
-                document.getElementById('audioplayer').play();
-                document.getElementById('vid').src = document.getElementById('vid').src + '?autoplay=1'
-                document.getElementById('cover').style.display = 'none';
-            })()">Play</button> 
-        </div>
-        <iframe id="vid" width="100%" height="100%" src="https://www.youtube.com/embed/BOa0zQBRs_M" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-        <audio id="audioplayer" autoplay loop >
-            <source autoplay loop src="./Swardy - Here On My Own - 03 I Remember Maine.mp3">
-        </audio>
-    </body>
-<html>
- -->
-
 
 <!DOCTYPE html>
 <html>
@@ -59,11 +16,9 @@
           background-color:black;
           opacity: 0.95;
           color: white;
-          cursor: pointer;
-          font-size: 25px;
           font-family: sans-serif;
           text-align: center;
-          padding-top: 25%;
+          padding-top: 18%;
         }
         #videoplayer {
           position: absolute;
@@ -75,13 +30,30 @@
         #text {
           opacity: 0;
         }
+        a, a:hover {
+          color: white;
+        }
+        button {
+          padding: 9px 13px;
+          border-radius: 2px;
+          font-family: sans-serif;
+          font-size: 1.2em;
+          cursor: pointer;
+        }
       </style>
 
   </head>
 
   <body>
     
-    <div id="cover"><span id="text"></span></div>
+    <div id="cover">
+      <div id="text">
+        <h1>Thunderstorm in New York</h1>
+        <p>🎥: <a href="https://www.youtube.com/watch?v=BOa0zQBRs_M" target="_blank">Nomadic Ambience</a></p>
+        <p>🎧: <a href="https://open.spotify.com/artist/5iTOaSGMZgJ1U8k6NjmzTx" target="_blank">Swardy</a></p>
+        <p><button>Walk</button></p>
+      </div>
+    </div>
 
     <div id="videoplayer"></div>
 
@@ -145,8 +117,8 @@
       }
 
       $(function() {
-        $('#text').html(isTouchDevice ? 'Tap to take a walk' : 'Click to take a walk')
-        $('#cover').click(function() {
+        // $('#text').html(isTouchDevice ? 'Tap to take a walk' : 'Click to take a walk')
+        $('button, #cover').click(function() {
           playAudio()
         })
       })
