@@ -17,7 +17,7 @@ def main():
     def on_progress(stream, chunk, file_handle, bytes_remaining):
         if last_time != int(time()):
             print(
-                'Downloading (%s/%s): %d%%' % (to_kb(bytes_total-bytes_remaining), to_kb(bytes_total), (bytes_total - bytes_remaining)/bytes_total * 100),
+                'Downloading (%s/%s): %d%%' % (to_kb(bytes_total-bytes_remaining), to_kb(bytes_total), float(bytes_total - bytes_remaining)/float(bytes_total) * 100),
                 end='\r'
             )
 
