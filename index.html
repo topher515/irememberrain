@@ -2,10 +2,12 @@
 <!DOCTYPE html>
 <html>
   <head>
-
     <title>I Remember Rain</title>
-
     <style>
+        body {
+          margin: 0;
+          padding: 0;
+        }
         #cover {
           position: absolute;
           left: 0;
@@ -14,24 +16,16 @@
           bottom: 0;
           z-index: 100;
           background-color:black;
-          opacity: 0.95;
-          color: white;
-          font-family: sans-serif;
-          text-align: center;
-          padding-top: 18%;
+          opacity: 0.5;
         }
-        #videoplayer {
+        #text-container {
           position: absolute;
           left: 0;
           right: 0;
-          top: 0;
-          bottom: 0;
-          z-index: 99;
-          width: 100%;
-          height: 100%;
-        }
-        #text {
-          opacity: 0;
+          bottom: 10px;
+          color: white;
+          font-family: sans-serif;
+          text-align: center;
         }
         a, a:hover {
           color: white;
@@ -45,106 +39,77 @@
           background-color: white;
           color: black;
         }
+        #video-container {
+          position: absolute;
+          top: 0;
+          bottom: 0;
+          width: 100%;
+          height: 100%; 
+          overflow: hidden;
+        }
+        #video-container video {
+          min-width: 100%; 
+          min-height: 100%;
+          width: auto;
+          height: auto;
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%,-50%);
+        }
       </style>
-
   </head>
-
   <body>
-    
-    <div id="cover">
-      <div id="text">
-        <h1>Thunderstorm in New York</h1>
-        <p>🎥: <a href="https://www.youtube.com/watch?v=BOa0zQBRs_M" target="_blank">Nomadic Ambience</a></p>
-        <p>🎧: <a href="https://open.spotify.com/artist/5iTOaSGMZgJ1U8k6NjmzTx" target="_blank">Swardy</a></p>
-        <p><button>Walk</button></p>
+    <div id="cover" onclick="playAudio()">
+      <div id="text-container">
+        <p>🎥: <a href="https://www.youtube.com/watch?v=BOa0zQBRs_M" target="_blank">Thunderstorm in New York - Nomadic Ambience</a></p>
+        <p>🎧: <a href="https://open.spotify.com/artist/5iTOaSGMZgJ1U8k6NjmzTx" target="_blank">I Remember Maine - Swardy</a></p>
+        <button>Walk with music</button>
       </div>
     </div>
-
-    <video id="videoplayer" controls>
-      <source 
-        src="https://d29o7id1yagyw1.cloudfront.net/rainwalk.mp4" 
-        type="video/mp4" />
-    </video>
-
-    <!-- div id="videoplayer"></div -->
+    
+    <div id="video-container">
+      <video 
+        id="videoplayer" 
+        playsinline 
+        muted
+        autoplay
+        onclick="playAudio()"
+      >
+        <source 
+          src="https://d29o7id1yagyw1.cloudfront.net/rainwalk.mp4" 
+          type="video/mp4" />
+      </video>
+    </div>
+    <audio 
+      id="audio-player" 
+      autoplay 
+      loop 
+    >
+      <source src="./Swardy - Here On My Own - 03 I Remember Maine.mp3">
+    </audio>
 
     <script
       src="https://code.jquery.com/jquery-3.4.1.min.js"
       integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
-      crossorigin="anonymous"></script>
+      crossorigin="anonymous"
+    ></script>
 
     <script>
-      var VIDEO_ID = 'BOa0zQBRs_M'
-
       var isTouchDevice = 'ontouchstart' in document.documentElement;
-      // var tag = document.createElement('script');
-
-      // tag.src = "https://www.youtube.com/iframe_api";
-      // var firstScriptTag = document.getElementsByTagName('script')[0];
-      // firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
-
-      var player;
-
-      function onYouTubeIframeAPIReady() {
-        player = new YT.Player('videoplayer', {
-          height: '100%',
-          width: '100%',
-          videoId: VIDEO_ID,
-          events: {
-            'onReady': onVideoPlayerReady,
-            'onStateChange': onVideoPlayerStateChange
-          }
-        });
-      }
-
       function fadeOut() {
-        $('#text').fadeTo(1000, 0);
-        $('#cover').fadeTo(10000, 0.01);
+        $('button').fadeTo(1000, 0);
+        $('#cover').fadeTo(10000, 0);
       }
-
       function playAudio() {
-        var audioplayer = document.getElementById('audioplayer');
+        var audioplayer = document.getElementById('audio-player');
         audioplayer.play();
         audioplayer.volume = 1.0;
-        audioplayer.oncanplay = null;
+        fadeOut();
       }
-
-      function onAudioPlayerReady() {
-        playAudio();
-      }
-
-      function onVideoPlayerReady(event) {
-        $('#text').fadeTo(1000, 0.7);
-        event.target.seekTo(0)
-        event.target.setVolume(0);
-        event.target.playVideo(20);
-      }
-
-      var playedAudio = false;
-      function onVideoPlayerStateChange(event) {
-        if (event.data == YT.PlayerState.PLAYING && !playedAudio) {
-          playAudio()
-        }
-      }
-
       $(function() {
-        // $('#text').html(isTouchDevice ? 'Tap to take a walk' : 'Click to take a walk')
-        $('button, #cover').click(function() {
-          playAudio()
-        })
+        $('button').html(isTouchDevice ? 'Tap to walk with music' : 'Click to walk with music')
       })
-
     </script>
-
-    <audio 
-      id="audioplayer" 
-      autoplay 
-      loop 
-      oncanplay="onAudioPlayerReady()"
-      onplay="fadeOut()"
-    >
-      <source autoplay loop src="./Swardy - Here On My Own - 03 I Remember Maine.mp3">
-    </audio>
-
   </body>
 </html>
